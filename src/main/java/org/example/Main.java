@@ -35,8 +35,14 @@ public class Main {
             String statistics = analyzer.getStatistics();
 
             if (outputToFile) {
-                // Запись в файл (будет реализована в ветке feature/file-output)
-                System.out.println("Статистика сохранена в файл stats.txt");
+                try {
+                    Path outputPath = Paths.get("stats.txt");
+                    Files.writeString(outputPath, statistics);
+                    System.out.println("Статистика сохранена в файл stats.txt");
+                } catch (IOException e) {
+                    System.err.println("Ошибка при сохранении в файл: " + e.getMessage());
+                    System.exit(1);
+                }
             } else {
                 System.out.println(statistics);
             }
